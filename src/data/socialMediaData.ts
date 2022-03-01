@@ -7,25 +7,25 @@ export const socialMediaData = [
   {
     id: 1,
     label: 'Instagram',
-    icon: <InstagramIcon />,
+    icon: InstagramIcon,
     link: 'https://www.instagram.com/'
   },
   {
     id: 2,
     label: 'Facebook',
-    icon: <FacebookIcon />,
+    icon: FacebookIcon,
     link: 'https://www.facebook.com/'
   },
   {
     id: 3,
     label: 'Twitter',
-    icon: <TwitterIcon />,
+    icon: TwitterIcon,
     link: 'https://www.twitter.com/'
   },
   {
     id: 4,
     label: 'LinkedIn',
-    icon: <LinkedInIcon />,
+    icon: LinkedInIcon,
     link: 'https://www.linkedin.com/'
   }
 ];
