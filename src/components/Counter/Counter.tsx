@@ -1,9 +1,3 @@
-/**
- * Counter
- * @param {object} product get the product
- * @return {node} Returns Counter component for exact product
- */
-
 import React from 'react';
 import { useAppSelector, useAppDispatch } from 'store/hook';
 import { decreaseQuantity, addToCart } from 'store/slices/cart/cartSlice';
@@ -57,20 +51,3 @@ export default function Counter({ product }: { product: Product }) {
     </Box>
   );
 }
-
-// Counter.propTypes = {
-//   product: PropTypes.exact({
-//     name: PropTypes.string,
-//     category: PropTypes.string,
-//     description: PropTypes.string,
-//     id: PropTypes.number,
-//     image: PropTypes.string,
-//     itemQuantity: PropTypes.number,
-//     price: PropTypes.number,
-//     rating: PropTypes.exact({
-//       count: PropTypes.number,
-//       rate: PropTypes.number
-//     }),
-//     title: PropTypes.string
-//   })
-// };

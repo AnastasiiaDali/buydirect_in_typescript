@@ -141,7 +141,7 @@ export default function Footer() {
                   href={social.link}
                   target="_blank"
                   className={classes.gridItem}>
-                  {social.icon}
+                  <social.icon />
                   <Box display={{ xs: 'none', md: 'inline-flex' }}>
                     <Typography variant="body1">{social.label}</Typography>
                   </Box>
