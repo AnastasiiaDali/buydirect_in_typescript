@@ -1,12 +1,7 @@
-/**
- * AccountInfo
- * @description account information card for Account page
- * @returns {node} AccountInfo component
- */
 
-import React from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'store/hook';
 import { accountData } from 'data/accountData';
+import { Data } from 'types';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -15,10 +10,13 @@ import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import { useStyles } from 'pages/AccountPage/styles';
 
-export default function AccountInfo() {
+
+export default function AccountInfo(): JSX.Element {
   const classes = useStyles();
   const { billingAddress, shippingAddress, storeCredit } = accountData;
-  const user = useSelector((state) => state.account.user);
+  const user = useAppSelector((state) => state.account.user);
+  const { firstName } = user as Data;
+
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -26,7 +24,7 @@ export default function AccountInfo() {
           Account
         </Typography>
         <Box className={classes.cardContent}>
-          <Typography variant="body1">Account Name: {user.firstName}</Typography>
+          <Typography variant="body1">Account Name: {firstName}</Typography>
           <Divider flexItem />
           <Typography variant="body1">Billing Address:</Typography>
           <Typography variant="body1">{billingAddress}</Typography>

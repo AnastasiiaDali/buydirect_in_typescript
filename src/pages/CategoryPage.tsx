@@ -1,14 +1,9 @@
-/**
- * CategoryPage
- * @description category
- * @returns {node} CategoryPage component
- */
 
-import React from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { addToCart } from 'store/slices/cart/cartSlice';
 import { useLocation } from 'react-router-dom';
+import { Product } from 'types';
 import CategorySlider from 'components/CategorySlider/CategorySlider';
 import ProductItem from 'components/ProductItem/ProductItem';
 import ProductItemsSkeleton from 'components/Skeletons/ProductItemsSkeleton';
@@ -42,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function CategoryPage() {
-  let { pathname } = useLocation();
+export default function CategoryPage(): JSX.Element {
+  const { pathname } = useLocation();
   const classes = useStyles();
 
   const { data: products, isLoading } = useQuery(
@@ -55,7 +50,7 @@ export default function CategoryPage() {
   );
   const dispatch = useDispatch();
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product: Product) => {
     dispatch(addToCart(product));
   };
 
@@ -66,7 +61,7 @@ export default function CategoryPage() {
       </Box>
       <Breads category={pathname.replace('/category/', '')} />
       <ProductItemsSkeleton isLoading={isLoading} />
-      {products?.map((product, index) => (
+      {products?.map((product: Product, index: string) => (
         <ProductItem key={index} product={product} handleAddToCart={handleAddToCart} />
       ))}
     </Box>

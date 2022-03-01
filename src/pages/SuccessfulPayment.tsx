@@ -1,10 +1,3 @@
-/**
- * SuccesssfulPayment
- * @description after payment has been completed leads to this page
- * @returns {node} SuccesssfulPayment component
- */
-
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -31,13 +24,14 @@ const useStyles = makeStyles(() => ({
   },
   link: {
     color: PrimaryBlue,
+    width: "200px",
     '&:hover': {
       textDecoration: 'underline'
     }
   }
 }));
 
-export default function SuccessfulPayment() {
+export default function SuccessfulPayment(): JSX.Element {
   const classes = useStyles();
 
   return (
@@ -50,7 +44,7 @@ export default function SuccessfulPayment() {
         <img width="100%" src={successfulPayment} />
       </Box>
 
-      <Typography width={200} className={classes.link} component={Link} to={'/'}>
+      <Typography className={classes.link} component={Link} to={'/'}>
         Go to home page
       </Typography>
     </Box>

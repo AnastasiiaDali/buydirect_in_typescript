@@ -12,7 +12,7 @@ import TopSellers from 'components/TopSellers/TopSellers';
 import SpecialSale from 'components/SpecialSale/SpecialSale';
 import DiscountedItems from 'components/DiscountedItems/DiscountedItems';
 
-function MainPage() {
+function MainPage(): JSX.Element {
   return (
     <>
       <Header />

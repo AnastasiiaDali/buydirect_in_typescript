@@ -1,10 +1,4 @@
-/**
- * AddressBook
- * @description address information card for Account page
- * @returns {node} AddressBook component
- */
 
-import React from 'react';
 import { accountData } from 'data/accountData';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';

@@ -1,10 +1,4 @@
-/**
- * AccountPage
- * @description account page infomation
- * @returns {node} AccountPage component
- */
 
-import React from 'react';
 import AccountInfo from './AccountInfo';
 import Orders from './Orders';
 import AddressBook from './AddressBook';
@@ -30,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AccountPage() {
+export default function AccountPage(): JSX.Element {
   const classes = useStyles();
 
   return (

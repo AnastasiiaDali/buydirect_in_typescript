@@ -1,8 +1,3 @@
-/**
- * FaqPage
- * @description faq page, linked from footer
- * @returns {node} FaqPage component
- */
 
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -36,7 +31,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function FaqPage() {
+export default function FaqPage(): JSX.Element {
   const classes = useStyles();
 
   return (

@@ -1,13 +1,9 @@
-/**
- * ProductPage
- * @returns {node} ProductPage component
- */
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { addToCart } from 'store/slices/cart/cartSlice';
 import { useLocation } from 'react-router-dom';
+import { Product } from 'types';
 import TopSellers from 'components/TopSellers/TopSellers';
 import ProductPageItemSkeleton from 'components/Skeletons/ProductPageItemSkeleton';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -124,7 +120,7 @@ export const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ProductPage() {
+export default function ProductPage(): JSX.Element {
   const { pathname } = useLocation();
   const classes = useStyles();
   const [count, setCount] = useState(0);
@@ -143,7 +139,7 @@ export default function ProductPage() {
 
   const dispatch = useDispatch();
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product: Product) => {
     dispatch(addToCart({ ...product, itemQuantityTemp: count }));
   };
 
@@ -185,11 +181,11 @@ export default function ProductPage() {
                       variant="contained"
                       disabled={count === 0}
                       onClick={() => handleDecreaseQuantity()}>
-                      <RemoveIcon color="secondary" className={classes.icon} />
+                      <RemoveIcon color="secondary" />
                     </Button>
                     <Box className={classes.counter}>{count}</Box>
                     <Button variant="contained" onClick={() => handleIncreaseQuantity()}>
-                      <AddIcon color="secondary" className={classes.icon} />
+                      <AddIcon color="secondary" />
                     </Button>
                   </Box>
                   {/* Add FAVORITE and Add to CART button */}

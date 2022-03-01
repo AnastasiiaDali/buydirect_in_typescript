@@ -1,10 +1,4 @@
-/**
- * Orders
- * @description orders information card for Account page
- * @returns {node} Orders component
- */
 
-import React from 'react';
 import { ordersData } from 'data/ordersData';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -14,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import { useStyles } from 'pages/AccountPage/styles';
 
-export default function Orders() {
+export default function Orders(): JSX.Element {
   const classes = useStyles();
   return (
     <Card className={classes.card}>

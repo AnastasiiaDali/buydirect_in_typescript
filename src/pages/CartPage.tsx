@@ -1,16 +1,10 @@
-/**
- * CartPage
- * @description cart
- * @returns {node} CartPage component
- */
-
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'store/hook';
 import { useDispatch } from 'react-redux';
 import { removeFromCart } from 'store/slices/cart/cartSlice';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
+import { Product } from 'types';
 import Counter from 'components/Counter/Counter';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
@@ -91,15 +85,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function CartPage() {
-  const cartItems = useSelector((state) => state.cart.cartItems);
-  const cartTotaAmount = useSelector((state) => state.cart.cartTotaAmount);
-  const isLoggedIn = useSelector((state) => state.account.isLoggedIn);
+export default function CartPage(): JSX.Element {
+  const cartItems = useAppSelector((state) => state.cart.cartItems);
+  const cartTotaAmount = useAppSelector((state) => state.cart.cartTotaAmount);
+  const isLoggedIn = useAppSelector((state) => state.account.isLoggedIn);
   const { pathname } = useLocation();
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const handleRemoveFromCart = (product) => {
+  const handleRemoveFromCart = (product: Product) => {
     dispatch(removeFromCart(product));
   };
 
@@ -112,7 +106,7 @@ export default function CartPage() {
           </Typography>
 
           <Box className={classes.productWrapper}>
-            {cartItems.map((product) => {
+            {cartItems.map((product: Product) => {
               return (
                 <Box display="flex" key={product.id}>
                   <div className={classes.imageProductWrapper}>

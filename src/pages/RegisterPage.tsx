@@ -1,19 +1,9 @@
-/**
- * LoginPage
- * @description log in
- * @returns {node} LoginPage component
- */
-
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { userLogIn } from 'store/slices/account/accountSlice';
-import { Link } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
+import { addUser } from 'store/slices/account/accountSlice';
+import { useNavigate } from 'react-router-dom';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Data } from 'types';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -21,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TextDarkGrey, PrimaryBlue } from 'theme';
 
 import * as yup from 'yup';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   accountContainer: {
@@ -28,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     padding: '100px 16px 0',
     maxWidth: '1000px',
-    minHeight: 'calc(100vh - 210px)',
     margin: '0 auto 10px',
     [theme.breakpoints.up('sm')]: {
       paddingTop: 100,
@@ -85,66 +75,98 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       textDecoration: 'underline'
     }
-  },
-  snackBar: {
-    backgroundColor: '#465839'
   }
 }));
-let schema = yup
+
+const schema = yup
   .object()
   .shape({
+    firstName: yup.string().max(15).required(),
+    lastName: yup.string().max(15).required(),
     email: yup.string().email().required(),
     password: yup
       .string()
       .required('Password is required')
-      .min(6, 'Password must be at least 6 characters')
+      .min(6, 'Password must be at least 6 characters'),
+    confirmPassword: yup
+      .string()
+      .required('Confirm Password is required')
+      .oneOf([yup.ref('password')], 'Passwords must match')
   })
   .required();
 
-export default function LoginPage() {
-  const classes = useStyles();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
-  const { state } = useLocation();
-
-  const user = useSelector((state) => state.account.user);
-
-  const handleUserLogIn = () => {
-    dispatch(userLogIn());
+  type FieldValues = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
   };
 
-  const onSubmit = (data) => {
-    if (data.email === user.email && data.password === user.password) {
-      handleUserLogIn();
-      navigate(state?.prevPath ? state.prevPath : '/account');
-    } else {
-      enqueueSnackbar('Seems like you do not have an account yet, please go to register', {
-        variant: 'info',
-        autoHideDuration: 3000
-      });
-    }
+export default function RegisterPage(): JSX.Element {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleAddUser = (data: Data) => {
+    dispatch(addUser(data));
+  };
+
+  const onSubmit: SubmitHandler<FieldValues> = (data: Data) => {
+    handleAddUser(data);
+    navigate('/login');
   };
 
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm({
-    resolver: yupResolver(schema)
+  } = useForm<FieldValues>({
+    resolver: yupResolver(schema),
+    mode: 'onChange',
+    reValidateMode: 'onChange'
   });
 
   return (
     <Box className={classes.accountContainer}>
       <Typography variant="h2" align="center" paragraph>
-        Log In
+        Register
       </Typography>
-
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
         <Box className={classes.inputGroup}>
           <Box className={classes.inputBox}>
             <label className={classes.label} htmlFor="name">
-              Email
+              First Name
+            </label>
+            <input
+              className={classes.input}
+              type="text"
+              {...register('firstName')}
+              placeholder="James"
+            />
+            <Typography color="error" variant="body2" paragraph>
+              {errors.firstName?.message}
+            </Typography>
+          </Box>
+
+          <Box className={classes.inputBox}>
+            <label className={classes.label} htmlFor="name">
+              Surname
+            </label>
+            <input
+              className={classes.input}
+              type="text"
+              {...register('lastName')}
+              placeholder="Bond"
+            />
+            <Typography color="error" variant="body2" paragraph>
+              {errors.lastName?.message}
+            </Typography>
+          </Box>
+
+          <Box className={classes.inputBox}>
+            <label className={classes.label} htmlFor="name">
+              Email address
             </label>
             <input
               className={classes.input}
@@ -171,17 +193,32 @@ export default function LoginPage() {
               {errors.password?.message}
             </Typography>
           </Box>
+
+          <Box className={classes.inputBox}>
+            <label className={classes.label} htmlFor="name">
+              Confirm Password
+            </label>
+            <input
+              className={classes.input}
+              type="password"
+              {...register('confirmPassword')}
+              placeholder="********"
+            />
+            <Typography color="error" variant="body2" paragraph>
+              {errors.confirmPassword?.message}
+            </Typography>
+          </Box>
           <Box marginTop="20px" width="100%">
             <Button fullWidth variant="contained" type="submit">
-              Login
+              REGISTER
             </Button>
           </Box>
         </Box>
       </form>
       <Typography variant="h4" paragraph align="center">
-        Do not have account yet?{' '}
-        <Link to={'/register'} className={classes.link}>
-          Register here
+        Already have an account?{' '}
+        <Link to={'/login'} className={classes.link}>
+          Log in here
         </Link>
       </Typography>
     </Box>

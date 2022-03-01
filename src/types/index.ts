@@ -12,3 +12,21 @@ export type Product = {
   };
   title: string;
 };
+
+export type Data = {
+  confirmPassword: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+};
+
+export type User = {
+  email?: string;
+  password?: string;
+};
+
+export type LoginData = {
+  email: string;
+  password: string;
+};

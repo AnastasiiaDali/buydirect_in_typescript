@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function OurStoryPage() {
+export default function OurStoryPage(): JSX.Element {
   const classes = useStyles();
 
   return (

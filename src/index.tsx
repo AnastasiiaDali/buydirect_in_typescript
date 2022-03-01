@@ -2,13 +2,14 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { store } from './store/index.ts';
+import { store } from 'store/index';
 import { Provider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
 import { BrowserRouter } from 'react-router-dom';
 import theme from './theme';
-import Slide from '@material-ui/core/Slide';
+// import Slide from '@material-ui/core/Slide';
 import App from './App';
+import React from 'react';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,8 +32,8 @@ ReactDOM.render(
           horizontal: 'center'
         }}
         preventDuplicate
-        hideIconVariant
-        TransitionComponent={Slide}>
+        // TransitionComponent={Slide}
+        hideIconVariant>
         <BrowserRouter>
           <Provider store={store}>
             <App />

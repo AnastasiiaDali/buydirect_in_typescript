@@ -1,11 +1,5 @@
-/**
- * PaymentPage
- * @description payment page infomation
- * @returns {node} PaymentPage component
- */
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useState} from 'react'
+import { useAppSelector, useAppDispatch} from 'store/hook';
 import { useNavigate } from 'react-router-dom';
 import { clearCart } from 'store/slices/cart/cartSlice';
 
@@ -46,17 +40,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function PaymentPage() {
-  const cartTotaAmount = useSelector((state) => state.cart.cartTotaAmount);
+export default function PaymentPage(): JSX.Element {
+  const cartTotaAmount = useAppSelector((state) => state.cart.cartTotaAmount);
   const classes = useStyles();
-  const [selected, setSelected] = React.useState('paypal');
+  const [selected, setSelected] = useState('paypal');
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleCheckOut = async () => {
     await dispatch(clearCart());
     navigate('/successful');
-    // location.reload();
   };
 
   return (

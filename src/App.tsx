@@ -9,7 +9,7 @@ import RegisterPage from 'pages/RegisterPage';
 import AccountPage from 'pages/AccountPage';
 import FaqPage from 'pages/FaqPage';
 import OurStoryPage from 'pages/OurStoryPage';
-import PaymentPage from 'pages/PaymentPage/index.jsx';
+import PaymentPage from 'pages/PaymentPage';
 import SuccessfulPayment from 'pages/SuccessfulPayment';
 import Box from '@material-ui/core/Box';
 import Header from 'components/Header/Header';
